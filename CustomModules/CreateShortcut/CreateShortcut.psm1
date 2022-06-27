@@ -3,7 +3,7 @@
    Creates a shortcut in the user's desktop directory of the specified program
 #>
 
-function Create-Shortcut
+function CreateShortcut
 {
     param
     (
@@ -25,4 +25,4 @@ function Create-Shortcut
     }
 }
 
-Export-ModuleMember -Function Create-Shortcut
+Export-ModuleMember -Function CreateShortcut

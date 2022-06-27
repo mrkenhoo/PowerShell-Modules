@@ -5,7 +5,7 @@
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
-function Unzip-File
+function UnzipFile
 {
     #
     # Function source:
@@ -20,4 +20,4 @@ function Unzip-File
     [System.IO.Compression.ZipFile]::ExtractToDirectory(${SourcePath}, ${DestinationFile})
 }
 
-Export-ModuleMember Unzip-File
+Export-ModuleMember UnzipFile

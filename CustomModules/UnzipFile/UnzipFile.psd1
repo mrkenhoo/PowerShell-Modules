@@ -3,11 +3,11 @@
     ModuleVersion = "1.0"
     PowerShellVersion = '5.1'
     ClrVersion = "4.0"
-    RootModule = "Create-Shortcut.psm1"
+    RootModule = "UnzipFile.psm1"
     TypesToProcess = @()
     FormatsToProcess = @()
     CmdletsToExport = @(
-        'Create-Shortcut'
+        'UnzipFile'
     )
     AliasesToExport = @()
     CompatiblePSEditions = @('Desktop', 'Core')
