@@ -29,14 +29,17 @@ process
         {
             ForEach (${Module} in @(Get-ChildItem -Directory "${SourcePath}"))
             {
-                if (Test-Path -Path "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}")
+                if (${Module} -in @(Get-ChildItem -Directory "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}"))
                 {
-                    Remove-Item -Path "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}" -Confirm -Force -Recurse | Out-Null
-                    Remove-Module -Name "${Module}"
-                }
-                else
-                {
-                    Write-Warning -Message "The module '${Module}' is not installed"
+                    if (Test-Path -Path "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}")
+                    {
+                        Remove-Item -Path "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}" -Confirm -Force -Recurse | Out-Null
+                        Remove-Module -Name "${Module}"
+                    }
+                    else
+                    {
+                        Write-Warning -Message "The module '${Module}' is not installed"
+                    }
                 }
             }
 
