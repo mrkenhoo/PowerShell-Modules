@@ -2,27 +2,32 @@
 param
 (
     [Parameter(Mandatory=$true)]
-    [bool]${Install}
+    [String]${SourcePath},
+    [Parameter(Mandatory=$true)]
+    [String]${DestinationPath},
+    [Parameter(Mandatory=$true)]
+    [ValidateSet('Deploy','Removal')]
+    [String]${InstallationType}
 )
 
 process
 {
     try
     {
-        if (${Install})
+        if (${InstallationType} -eq "Deploy")
         {
-            ForEach (${Module} in @(Get-ChildItem -Directory .\CustomModules))
+            ForEach (${Module} in @(Get-ChildItem -Directory "${SourcePath}"))
             {
-                Copy-Item -LiteralPath ".\CustomModules\${Module}" -Confirm -Destination "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules" -Force -Recurse | Out-Null
+                Copy-Item -LiteralPath "${SourcePath}\${Module}" -Confirm -Destination "${DestinationPath}" -Force -Recurse | Out-Null
                 Import-Module -Name ${Module}
             }
 
             Write-Host -NoNewLine 'Press any key to continue...'
             $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
         }
-        else
+        if (${InstallationType} -eq "Removal")
         {
-            ForEach (${Module} in @(Get-ChildItem -Directory ".\CustomModules"))
+            ForEach (${Module} in @(Get-ChildItem -Directory "${SourcePath}"))
             {
                 if (Test-Path -Path "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}")
                 {
