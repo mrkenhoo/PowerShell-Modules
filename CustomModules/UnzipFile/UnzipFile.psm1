@@ -17,7 +17,7 @@ function UnzipFile
         [string]${DestinationPath}
     )
 
-    [System.IO.Compression.ZipFile]::ExtractToDirectory(${SourcePath}, ${DestinationFile})
+    [System.IO.Compression.ZipFile]::ExtractToDirectory(${SourceFile}, ${DestinationPath})
 }
 
 Export-ModuleMember UnzipFile
