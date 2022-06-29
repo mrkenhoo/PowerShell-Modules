@@ -16,7 +16,7 @@ function CreateShortcut
     {
         ${WSScriptObj} = New-Object -ComObject ("WScript.Shell")
         ${Shortcut} = ${WSScriptObj}.CreateShortcut(${ShortcutPath})
-        ${Shortcut}.TargetPath = "${TargetPath}\chrome-win\chrome.exe"
+        ${Shortcut}.TargetPath = "${TargetPath}"
         ${Shortcut}.Save()
     }
     catch
