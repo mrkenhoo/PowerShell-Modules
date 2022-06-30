@@ -11,8 +11,7 @@ function DisableAllWindowsOptionalFeatures
     {
         ${wof} = (Get-WindowsOptionalFeature -FeatureName '*' -Online).FeatureName
         Write-Host ('==> ' + ${wof}.Count + ' Windows optional feature(s) will be disabled from this system')
-        ${wof} | ForEach-Object
-        {
+        ${wof} | ForEach-Object {
             Write-Host "    -> Disabling optional feature: $_..."
             Disable-WindowsOptionalFeature -FeatureName $_ -Online -NoRestart -ErrorAction SilentlyContinue -WarningAction SilentlyContinue | Out-Null
         }
