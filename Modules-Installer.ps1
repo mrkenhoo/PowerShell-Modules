@@ -18,7 +18,7 @@ process
         {
             ForEach (${Module} in @(Get-ChildItem -Directory "${SourcePath}"))
             {
-                Copy-Item -LiteralPath "${SourcePath}\${Module}" -Confirm -Destination "${DestinationPath}" -Force -Recurse | Out-Null
+                Copy-Item -LiteralPath "${SourcePath}\${Module}" -Destination "${DestinationPath}" -Force -Recurse | Out-Null
                 Import-Module -Name ${Module}
             }
 
@@ -31,7 +31,7 @@ process
             {
                 if (Test-Path -Path "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}")
                 {
-                    Remove-Item -Path "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}" -Confirm -Force -Recurse | Out-Null
+                    Remove-Item -Path "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}" -Force -Recurse | Out-Null
                     Remove-Module -Name "${Module}"
                 }
                 else
