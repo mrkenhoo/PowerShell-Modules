@@ -16,16 +16,13 @@ function ReinstallUwpApps
         {
             Add-AppxPackage -Path $_ -Register -Confirm -DisableDevelopmentMode | Out-Null
         }
-
-        Write-Host -NoNewLine 'Press any key to continue...'
-        $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
     }
     catch
     {
-        $_.Exception.Message
-        Write-Host -NoNewLine 'Press any key to continue...'
-        $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+        Write-Error -Message "An error has occurred" -Category NotSpecified
     }
+    Write-Host -NoNewLine 'Press any key to continue...'
+    $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
 }
 
 Export-ModuleMember -Function ReinstallAllUwpApps

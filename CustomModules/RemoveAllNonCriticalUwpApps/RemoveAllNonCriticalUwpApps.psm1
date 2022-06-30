@@ -6,40 +6,35 @@
 #Requires -RunAsAdministrator
 
 ${UwpWhitelistedApps} = @(
-    "Microsoft.WindowsStore"
-    "AppUp.IntelGraphicsExperience"
-    "NVIDIACorp.NVIDIAControlPanel"
-    "RealtekSemiconductorCorp.RealtekAudioControl"
-    "Microsoft.VCLibs.140.00.UWPDesktop"
-    "Microsoft.Winget.Source"
-    "Microsoft.DesktopAppInstaller"
-    "Microsoft.WindowsTerminal"
+    "Microsoft.WindowsStore_22205.1401.10.0_x64__8wekyb3d8bbwe"
+    "AppUp.IntelGraphicsExperience_1.100.3408.0_x64__8j3eq9eme6ctt"
+    "NVIDIACorp.NVIDIAControlPanel_8.1.962.0_x64__56jybvy8sckqj"
+    "RealtekSemiconductorCorp.RealtekAudioControl_1.1.137.0_x64__dt26b99r8h8gj"
+    "Microsoft.VCLibs.140.00.UWPDesktop_~_x86__8wekyb3d8bbwe"
+    "Microsoft.Winget.Source_2022.630.1623.785_neutral__8wekyb3d8bbwe"
+    "Microsoft.DesktopAppInstaller_1.17.11601.0_x64__8wekyb3d8bbwe"
+    "Microsoft.WindowsTerminal_~_x64__8wekyb3d8bbwe"
 )
-
-${UwpApps} = (Get-AppxPackage -AllUsers).Name
 
 function RemoveAllNonCriticalUwpApps
 {
-    foreach ($App in ${UwpApps})
+    ForEach (${App} in (Get-AppxPackage -AllUsers).PackageFullName)
     {
-        try
+        if (${App} -notin ${UwpWhitelistedApps})
         {
-            if ($App -notin ${UwpWhitelistedApps})
+            try
             {
                 Write-Host "==> Removing UWP app ${App}..."
-                Remove-AppPackage -AllUsers -Package $UwpApp | Out-Null
+                Remove-AppPackage -AllUsers -Package ${App} | Out-Null
             }
-
-            Write-Host -NoNewLine 'Press any key to continue...'
-            $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
-        }
-        catch
-        {
-            throw $_.Exception.Message
-            Write-Host -NoNewLine 'Press any key to continue...'
-            $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+            catch
+            {
+                Write-Error -Message "An error has occurred" -Category NotSpecified
+            }
         }
     }
+    Write-Host -NoNewLine 'Press any key to continue...'
+    $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
 }
 
 Export-ModuleMember -Function RemoveAllNonCriticalUwpApps

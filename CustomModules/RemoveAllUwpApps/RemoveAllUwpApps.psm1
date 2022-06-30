@@ -7,22 +7,10 @@
 
 function RemoveAllUwpApps
 {
-    ForEach (${UwpApp} in (Get-AppxPackage -AllUsers).Name)
+    ForEach (${UwpApp} in (Get-AppxPackage -AllUsers).PackageFullName)
     {
-        try
-        {
-            Write-Host "==> Removing UWP app ${UwpApp}..."
-            Remove-AppxPackage -Package ${UwpApp} -AllUsers -Confirm -ErrorAction SilentlyContinue -WarningAction SilentlyContinue | Out-Null
-
-            Write-Host -NoNewLine 'Press any key to continue...'
-            $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
-        }
-        catch
-        {
-            throw $_.Exception.Message
-            Write-Host -NoNewLine 'Press any key to continue...'
-            $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
-        }
+        Write-Host "==> Removing UWP app ${UwpApp}..."
+        Remove-AppxPackage -Package ${UwpApp} -AllUsers | Out-Null
     }
 }
 
