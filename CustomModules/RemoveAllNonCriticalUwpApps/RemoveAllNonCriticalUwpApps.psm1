@@ -10,10 +10,11 @@ ${UwpWhitelistedApps} = @(
     "AppUp.IntelGraphicsExperience_1.100.3408.0_x64__8j3eq9eme6ctt"
     "NVIDIACorp.NVIDIAControlPanel_8.1.962.0_x64__56jybvy8sckqj"
     "RealtekSemiconductorCorp.RealtekAudioControl_1.1.137.0_x64__dt26b99r8h8gj"
-    "Microsoft.VCLibs.140.00.UWPDesktop_~_x86__8wekyb3d8bbwe"
+    "Microsoft.VCLibs.140.00.UWPDesktop_14.0.30704.0_x86__8wekyb3d8bbwe"
+    "Microsoft.VCLibs.140.00.UWPDesktop_14.0.30704.0_x64__8wekyb3d8bbwe"
     "Microsoft.Winget.Source_2022.630.1623.785_neutral__8wekyb3d8bbwe"
     "Microsoft.DesktopAppInstaller_1.17.11601.0_x64__8wekyb3d8bbwe"
-    "Microsoft.WindowsTerminal_~_x64__8wekyb3d8bbwe"
+    "Microsoft.WindowsTerminal_1.13.11432.0_x64__8wekyb3d8bbwe"
 )
 
 function RemoveAllNonCriticalUwpApps
