@@ -2,18 +2,18 @@
 
 if (!${bootupState}) { New-Variable -Name bootupState -Value (gwmi win32_computersystem -Property BootupState).BootupState | Out-Null }
 
-if (${bootupState} -ne "Fail-safe boot")
-{
-    Write-Error "The system is required to be running in safe-mode to execute this script."
-    Write-Host -NoNewLine 'Press any key to continue...';
-    $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-    Exit 1
-}
-
 function ResetWindowsUpdate
 {
     try
     {
+        
+        if (${bootupState} -ne "Fail-safe boot")
+        {
+            Write-Error "The system is required to be running in safe-mode to execute this script."
+            Write-Host -NoNewLine 'Press any key to continue...';
+            $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+            Exit 1
+        }
         net stop bits
         net stop wuauserv
         net stop appidsvc
