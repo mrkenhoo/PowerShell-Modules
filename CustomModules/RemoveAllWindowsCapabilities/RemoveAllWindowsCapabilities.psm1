@@ -5,7 +5,7 @@
 
 #Requires -RunAsAdministrator
 
-if (!${validatedOsVersion}) { New-Variable -Name validatedOsVersion -Value "10.0.19041" 2>&1 }
+if (!${validatedOsVersion}) { New-Variable -Name validatedOsVersion -Value "10.0.19044" 2>&1 }
 
 if (!${OsVersion}) { New-Variable -Name osVersion -Value (gwmi win32_operatingsystem).version 2>&1 }
 
@@ -15,7 +15,7 @@ function RemoveAllWindowsCapabilities
     {
         if (${OsVersion} -ge ${validatedOsVersion})
         {
-            Write-Error -Message "Please use Windows 10 (21H2) v' + ${validatedOsVersion} + ' instead to avoid breaking the system."
+            Write-Error -Message "Please use Windows 10 (21H2) ${validatedOsVersion} instead to avoid breaking the system."
             Write-Host -NoNewLine 'Press any key to continue...'
             $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
             Exit 1
