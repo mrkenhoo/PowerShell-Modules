@@ -37,4 +37,4 @@ function RemoveAllWindowsCapabilities
     }
 }
 
-Export-ModuleMember -Function DisableAllWindowsOptionalFeatures
+Export-ModuleMember -Function RemoveAllWindowsCapabilities
