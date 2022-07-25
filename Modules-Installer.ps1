@@ -18,18 +18,17 @@ process
         {
             ForEach (${Module} in @(Get-ChildItem -Directory "${SourcePath}"))
             {
-                if (-not(Test-Path -Path ${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}))
+                if (-not(Test-Path -Path "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}"))
                 {
                     Write-Host "Installing module ${Module} to ${DestinationPath}"
                     Copy-Item -LiteralPath "${SourcePath}\${Module}" -Destination "${DestinationPath}" -Recurse | Out-Null
-                    Import-Module -Name "${Module}" -Global -Scope Global
                 }
                 else
                 {
                     Write-Host "Updating module ${Module} located at ${DestinationPath}"
                     Copy-Item -LiteralPath "${SourcePath}\${Module}" -Destination "${DestinationPath}" -Force -Recurse | Out-Null
-                    Import-Module -Name "${Module}" -Force -Global -Scope Global
                 }
+                Import-Module -Name "${Module}" | Out-Null
             }
             Write-Host -NoNewLine 'Press any key to continue...'
             $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
@@ -42,7 +41,7 @@ process
                 {
                     Write-Host "Removing module ${Module} from ${DestinationPath}"
                     Remove-Item -Path "${env:SystemRoot}\System32\WindowsPowerShell\v1.0\Modules\${Module}" -Force -Recurse | Out-Null
-                    Remove-Module -Name "${Module}" -Force
+                    Remove-Module -Name "${Module}" | Out-Null
                 }
                 else
                 {
