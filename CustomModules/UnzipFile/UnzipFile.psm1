@@ -20,4 +20,4 @@ function UnzipFile
     [System.IO.Compression.ZipFile]::ExtractToDirectory(${SourceFile}, ${DestinationPath})
 }
 
-Export-ModuleMember UnzipFile
+Export-ModuleMember -Function UnzipFile
